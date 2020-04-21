@@ -1,5 +1,6 @@
 from auth import TOKEN
 import codeNames as cn
+import dice as d
 import discord
 from discord.ext import commands
 from googletrans import Translator
@@ -48,7 +49,6 @@ async def roll(message, arg):
     if(len(l) != 2):
         await message.channel.send('cmd : '+prefix+'rd <N>d<M>')
         return
-
     try:
         int(l[0])
         int(l[1])
@@ -56,14 +56,10 @@ async def roll(message, arg):
         await message.channel.send('cmd : '+prefix+'rd <N>d<M>')
         return
 
-    number_of_sides = l[1]
     number_of_dice = l[0]
-    dice = [
-        random.choice(range(1, int(number_of_sides) + 1))
-        for _ in range(int(number_of_dice))
-    ]
-    total = sum(dice)
-    await message.channel.send("["+', '.join(str(x) for x in dice)+"] : "+str(total))
+    number_of_sides = l[1]
+
+    await message.channel.send(presentRollingDice(number_of_dice, number_of_sides))
 
 # @bot.command(name='', help='')
 # async def
