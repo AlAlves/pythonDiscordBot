@@ -1,9 +1,14 @@
 import random
+from datetime import datetime
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
+from pathlib import Path
 
 WORDLIST_FILENAME = "WORDLIST.txt"
-random.seed(69)
+OUTDIR = "tmp/codenames/"
+
+Path(OUTDIR).mkdir(parents=True, exist_ok=True)
+random.seed(datetime.now())
 
 def makeWordList():
     with open(WORDLIST_FILENAME,'r') as f:
@@ -29,7 +34,7 @@ def createWordGrid(nbWords = 25, listColors = [1, 8, 8, 8]):
         grid.append((wordList.pop(),color))
     return grid
 
-def imageGridNeutral(wordSetWithValues):
+def imageGridNeutral(wordSetWithValues, outfilename=OUTDIR+'neutralCodeNames.png'):
     word_width = 200
     word_height = 100
     width = word_width*5+4*10
@@ -61,10 +66,10 @@ def imageGridNeutral(wordSetWithValues):
             j += 1
             i = 0
 
-    img.save('tmp/codenames/neutralCodeNames.png')
-    return 'tmp/codenames/neutralCodeNames.png'
+    img.save(outfilename)
+    return outfilename
 
-def imageGridColored(wordSetWithValues):
+def imageGridColored(wordSetWithValues, outfilename=OUTDIR+'SPOILER_teamCodeNames.png'):
     word_width = 200
     word_height = 100
     width = word_width*5+4*10
@@ -110,8 +115,8 @@ def imageGridColored(wordSetWithValues):
         shape = [(0, height/5*(i+1)), (width, height/5*(i+1))]
         d.line(shape, fill="black", width=5)
 
-    img.save('tmp/codenames/SPOILER_teamCodeNames.png')
-    return 'tmp/codenames/SPOILER_teamCodeNames.png'
+    img.save(outfilename)
+    return outfilename
 
 # imageGridNeutral(createWordGrid())
 # imageGridColored(createWordGrid())
