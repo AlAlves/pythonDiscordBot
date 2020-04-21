@@ -56,10 +56,10 @@ async def roll(message, arg):
         await message.channel.send('cmd : '+prefix+'rd <N>d<M>')
         return
 
-    number_of_dice = l[0]
-    number_of_sides = l[1]
+    number_of_dice = int(l[0])
+    number_of_sides = int(l[1])
 
-    await message.channel.send(presentRollingDice(number_of_dice, number_of_sides))
+    await message.channel.send(d.presentRollingDice(number_of_dice, number_of_sides))
 
 # @bot.command(name='', help='')
 # async def
